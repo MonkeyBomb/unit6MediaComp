@@ -16,6 +16,23 @@ public class PictureTester
         beach.zeroBlue();
         beach.explore();
     }
+    /** Method to test zeroRed */
+    public static void testZeroRed()
+    {
+        Picture beach = new Picture("beach.jpg");
+        beach.explore();
+        beach.zeroRed();
+        beach.explore();
+    }
+    /** Method to test zeroGreen */
+    public static void testZeroGreen()
+    {
+        Picture beach = new Picture("beach.jpg");
+        beach.explore();
+        beach.zeroGreen();
+        beach.explore();
+    }
+    
 
     /** Method to test mirrorVertical */
     public static void testMirrorVertical()
@@ -34,14 +51,14 @@ public class PictureTester
     }
      public static void testMirrorDiagonal()
     {
-        Picture one = new Picture("1.jpg");
+        Picture one = new Picture("snowman.jpg");
         one.explore();
         one.mirrorDiagonal();
         one.explore();
     }
     public static void testmirrorHorizontalBotToTop()
     {
-        Picture one = new Picture("5.jpg");
+        Picture one = new Picture("snowman.jpg");
         one.explore();
         one.mirrorHorizontalBotToTop();
         one.explore();
@@ -80,12 +97,21 @@ public class PictureTester
     
     public static void testMirrorVerticalRightToLeft()
     {
-        Picture temple = new Picture("8.jpg");
+        Picture temple = new Picture("snowman.jpg");
         temple.explore();
         temple.mirrorVerticalRightToLeft();
         temple.explore();
     }
-   
+    public static void testCropAndCopy()
+    {
+        Picture one = new Picture("snowman.jpg");
+        Picture two = new Picture("snowman.jpg");
+        one.explore();
+        two.cropAndCopy( one, 9, 155 , 23 , 137 , 0 , 0);
+        two.explore();
+        
+        
+    }
     
     /** Main method for testing.  Every class can have a main
      * method in Java */
@@ -95,6 +121,8 @@ public class PictureTester
         // and comment out the ones you don't want
         // to run
         testZeroBlue();
+        testZeroRed();
+        testZeroGreen();
         //testKeepOnlyBlue();
         //testKeepOnlyRed();
         //testKeepOnlyGreen();
@@ -105,9 +133,10 @@ public class PictureTester
         testMirrorHorizontal();
         testMirrorTemple();
         testMirrorArms();
+        testCropAndCopy();
         //testMirrorGull();
         testMirrorDiagonal();
-        //testCollage();
+        testCollage();
         //testCopy();
         //testEdgeDetection();
         //testEdgeDetection2();

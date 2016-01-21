@@ -98,6 +98,32 @@ public class Picture extends SimplePicture
         }
     }
 
+    /** Method to set the red to 0 */
+    public void zeroRed()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed(0);
+            }
+        }
+    }
+
+    /** Method to set the Green to 0 */
+    public void zeroGreen()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setGreen(0);
+            }
+        }
+    }
+
     /** Method that mirrors the picture around a 
      * vertical mirror in the center of the picture
      * from left to right */
@@ -126,7 +152,7 @@ public class Picture extends SimplePicture
         int length = pixels.length;
         int width = pixels.length;
         int height = pixels[1].length;
-        
+
         for (int row = 0; row < length; row++)
         {
             for (int col = 0; col < pixels[row].length; col++)
@@ -260,17 +286,23 @@ public class Picture extends SimplePicture
     /** Method to create a collage of several pictures */
     public void createCollage()
     {
-        Picture flower1 = new Picture("flower1.jpg");
-        Picture flower2 = new Picture("flower2.jpg");
-        this.copy(flower1,0,0);
-        this.copy(flower2,100,0);
-        this.copy(flower1,200,0);
-        Picture flowerNoBlue = new Picture(flower2);
-        flowerNoBlue.zeroBlue();
-        this.copy(flowerNoBlue,300,0);
-        this.copy(flower1,400,0);
-        this.copy(flower2,500,0);
-        this.mirrorVertical();
+        Picture one = new Picture("5.jpg");
+        one.mirrorHorizontalBotToTop();
+        this.cropAndCopy( one, 9, 155 , 23 , 137 , 0 , 0);
+
+        Picture two = new Picture("5.jpg");
+        two.mirrorHorizontal();
+        this.cropAndCopy( two, 9, 155 , 23 , 137 , 0 , 525 );
+
+        Picture three = new Picture("5.jpg");
+        three.mirrorVerticalRightToLeft();
+        this.cropAndCopy( three, 9, 155 , 23 , 137 , 330  , 0  );
+
+        Picture four = new Picture("5.jpg");
+        //four.zeroBlue();
+        //four.zeroRed();
+        four.zeroGreen();
+        this.cropAndCopy( four, 9, 155 , 23 , 137 , 330 , 525 );
         this.write("collage.jpg");
     }
 
@@ -328,5 +360,17 @@ public class Picture extends SimplePicture
         }
     }
 
+    public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, int startSourceCol, int endSourceCol, int startDestRow, int startDestCol )
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel[][] pixels2 = sourcePicture.getPixels2D();
+        for (int i = startSourceRow; i < endSourceRow; i++)
+        {
+            for (int j = startSourceCol; j < endSourceCol; j++)
+            {
+                pixels[i - startSourceRow  + startDestRow][j - startSourceCol + startDestCol].setColor( pixels2[i][j].getColor());
+            }
+        }
+    }
 }
 // this } is the end of class Picture, put all new methods before this
